@@ -1,0 +1,27 @@
+# Replace existing rules with these
+**/*
+!src/
+!configs/
+!requirements.txt
+!Dockerfile
+
+# Explicitly ignore large/problematic directories
+**/data/
+**/checkpoints/
+**/logs/
+**/reports/
+**/__pycache__/
+**/.git/
+**/.idea/
+**/.vscode/
+**/*.ipynb
+**/*.pyc
+**/*.log
+
+# Special cases
+!data/processed/
+!models/trained/
+
+# Track experiment metadata
+!experiments/**/metrics.json
+!experiments/**/config.yaml

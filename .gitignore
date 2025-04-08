@@ -1,0 +1,34 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Data files
+data/
+*.h5
+*.pb
+*.pth
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs and outputs
+logs/
+checkpoints
+*.log
+
+# Notebooks
+*.ipynb_checkpoints
+
+# Docker
+docker-compose.override.yml

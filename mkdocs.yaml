@@ -1,0 +1,18 @@
+site_name: Deep Learning Project
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.indexes
+
+nav:
+  - Home: index.md
+  - Project Setup: setup.md
+  - Training Guide: training.md
+  - API Reference: api.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - codehilite
+  - admonition

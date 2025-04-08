@@ -1,0 +1,85 @@
+data:
+  dataset_path: "data/dataset"  # Updated path
+  original_classes: ["Photo", "Painting", "Schematics", "Sketch", "Text"]  # Updated classes
+  binary_classes: ["Photo", "Non-Photo"]
+  image_size: [224, 224]  # [128, 128], [224, 224] or [448, 448]
+  channels: 3  # Added to config
+  seed: 42
+  shuffle_buffer_size: 2048
+  shuffle:
+    activate: true  # Activation flag
+
+data_splitting:
+  train_size: 0.7
+  validation_size: 0.15
+  test_size: 0.15
+  stratify:
+    activate: true  # Activation flag
+  random_state: 42
+
+preprocessing:
+  normalization:
+    activate: true
+    method: "standard" # Can be "standard", "centered", or "minmax"
+  resize:
+    activate: true
+    method: "bilinear"
+  rescale_factor: 1./255
+
+model:
+  conv_filters: [32, 64, 128, 256]
+  dense_units: 512
+  dropout:
+    activate: true
+    rates: [0.3, 0.4, 0.5]
+  final_activation: "sigmoid"
+  kernel_initializer: "he_normal"
+  batch_norm:
+    activate: true
+
+train:
+  batch_size: 64 # conservative : 32 // recommended: 64 // agressive: 96 // max: 128
+  epochs: 50
+  learning_rate: 0.001
+  optimizer: "adam"
+  loss: "binary_crossentropy"
+  metrics: ["accuracy", "precision", "recall", "auc"]
+  early_stopping:
+    activate: true
+    patience: 10
+    min_delta: 0.001
+    monitor: "val_accuracy"
+  reduce_lr:
+    activate: true
+    factor: 0.2
+    patience: 5
+    min_learning_rate: 0.00001
+    monitor: "val_accuracy"
+
+augmentation:
+  activate: false  # Master switch
+  type: "default"  # Preset selector: none/light/default/heavy
+  # Individual overrides (only used if type != preset)
+  rotation_range: 20
+  width_shift_range: 0.1
+  height_shift_range: 0.1
+  zoom_range: 0.2
+  horizontal_flip: true
+  fill_mode: "reflect"
+
+checkpoints:
+  activate: true
+  monitor: "val_accuracy"
+  save_best_only: true
+  save_weights_only: false
+  save_format: "tf"
+
+metrics:
+  classification_threshold: 0.5
+  auc_curve_type: "ROC"
+
+training_process:
+  prefetch_buffer_size: "AUTOTUNE"
+  cache:
+    activate: false # False unless dataset is small (<5GB)
+  num_parallel_calls: "AUTOTUNE"
